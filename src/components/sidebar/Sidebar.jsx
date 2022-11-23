@@ -25,6 +25,12 @@ const Sidebar = () => {
               <span>Dashboard</span>
             </li>
           </Link>
+          <Link to="/SMSForm" style={{ textDecoration: "none" }}>
+            <li>
+              <DashboardIcon className="icon" />
+              <span>SMSForm</span>
+            </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
