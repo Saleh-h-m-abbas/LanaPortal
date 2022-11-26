@@ -6,7 +6,9 @@ import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/AuthContext";
-import SmsForm from "./pages/SMSForm/SmsForm";
+import SmsAddPage from "./pages/add/SmsAddPage";
+import SmsSendPage from "./pages/send/SmsSendPage";
+
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -29,7 +31,7 @@ function App() {
                 </RequireAuth>
               }
             />
-            <Route path="users">
+            <Route path="sms">
               <Route
                 index
                 element={
@@ -39,12 +41,22 @@ function App() {
                 }
               />
             </Route>
-            <Route path="SmsForm">
+            <Route path="send">
               <Route
                 index
                 element={
                   <RequireAuth>
-                    <SmsForm />
+                    <SmsSendPage />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="add">
+              <Route
+                index
+                element={
+                  <RequireAuth>
+                    <SmsAddPage />
                   </RequireAuth>
                 }
               />

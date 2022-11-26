@@ -1,79 +1,37 @@
 export const userColumns = [
-  { field: "id", headerName: "ID", width: 70 },
-  {
-    field: "authType",
-    headerName: "Type",
-    width: 120,
-  },
-  {
-    field: "username",
-    headerName: "User",
-    width: 150,
-    renderCell: (params) => {
-      return (
-        <div className="cellWithImg">
-          {!params.row.userPhoto?  <div></div>:<img className="cellImg" src={params.row.userPhoto} alt="" />}
-          {params.row.username}
-        </div>
-      );
-    },
-  },
-  {
-    field: "email",
-    headerName: "Email",
-    width: 210,
-  },
-  {
-    field: "phoneNumber",
-    headerName: "Phone",
-    width: 135,
-  },
+  { field: "id", headerName: "ID", width: 150 },
+  { field: "number", headerName: "Phone Number", width: 150 },
+  { field: "sms", headerName: "SMS", width: 600 },
+  { field: "sender", headerName: "SMS Header", width: 150 },
+  { field: "email", headerName: "Sender Email", width: 150 },
 
-
+ 
   {
-    field: "user_ip",
-    headerName: "User IP",
-    width: 120,
-  },
-  {
-    field: "user_mac",
-    headerName: "User Mac",
-    width: 140,
-  },
-  {
-    field: "ssid",
-    headerName: "SSID",
-    width: 140,
-  },
-  {
-    field: "ap_ip",
-    headerName: "AP IP",
-    width: 140,
-  },
-  {
-    field: "ap_mac",
-    headerName: "AP MAC",
-    width: 140,
-  },
-  {
-    field: "loginStatus",
-    headerName: "Status",
-    width: 80,
-    renderCell: (params) => {
-      const status= params.row.loginStatus;
-      return (
-          <div>{status==="1"?"Login":""}</div>
-      );
-    },
-  },
-  {
-    field: "created",
+    field: "createdAt",
     headerName: "Created At",
     width: 140,
     renderCell: (params) => {
-      const date= params.row.created;
+
       return (
-          <div>{`${date.toDate().toDateString()}`}</div>
+          <div>{`${params.row.createdAt?params.row.createdAt.toDate().toDateString(): ''}`}</div>
+      );
+    },
+    
+  },
+
+];
+
+export const smsColumns = [
+  { field: "id", headerName: "ID", width: 400 },
+  { field: "sms", headerName: "SMS Message", width: 700 },
+  { field: "username", headerName: "Added User", width: 250 },
+  {
+    field: "createdAt",
+    headerName: "Created At",
+    width: 750,
+    renderCell: (params) => {
+      return (
+          <div>{`${params.row.createdAt? params.row.createdAt?.toDate().toDateString() : ''}`}</div>
       );
     },
     

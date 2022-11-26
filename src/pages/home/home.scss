@@ -1,5 +1,6 @@
 .home {
   display: flex;
+  height: 100vh;
 
   .homeContainer {
     flex: 6;
@@ -20,7 +21,7 @@
       box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
       padding: 5px;
       margin: 20px;
-      height: 80%;
+      height: 70%;
 
       .listTitle {
         font-weight: 500;

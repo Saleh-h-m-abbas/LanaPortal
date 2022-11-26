@@ -8,20 +8,17 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
-const Datatable = () => {
+const SendDatatable = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
- 
-
     // LISTEN (REALTIME)
-    const unsub = onSnapshot(
-      collection(db, "users"),
+    const sub = onSnapshot(
+      collection(db, "SendSms"),
       (snapShot) => {
-        let list = [];
-        snapShot.docs.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
+        let list = snapShot.docs.map(doc=>{
+          return {...doc.data(),id: doc.id}
+        })
         setData(list);
       },
       (error) => {
@@ -29,18 +26,13 @@ const Datatable = () => {
       }
     );
 
-    return () => {
-      unsub();
-    };
+    return sub;
   }, []);
 
-
-
-  
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Users List
+        SMS List
       </div>
       <DataGrid
         className="datagrid"
@@ -48,14 +40,9 @@ const Datatable = () => {
         columns={userColumns}
         pageSize={100}
         rowsPerPageOptions={[9]}
-        initialState={{
-          sorting: {
-            sortModel: [{ field: 'created', sort: 'desc' }],
-          },
-        }}
       />
     </div>
   );
 };
 
-export default Datatable;
+export default SendDatatable;
