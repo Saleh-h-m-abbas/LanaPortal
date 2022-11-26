@@ -12,7 +12,7 @@ import { sendSmsSchema } from "../validation/Validation";
 const SmsSendForm = () => {
     const [sms, setSMS] = useState();
     const [option, setOption] = useState([]);
-    const [sender, setSender]  = useState("Go WIFI");
+    const [sender, setSender]  = useState("Lana Line");
     const user = JSON.parse(localStorage.getItem('user'));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -51,7 +51,7 @@ const SmsSendForm = () => {
                         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
                         var urlencoded = new URLSearchParams();
-                        urlencoded.append("MYID", "c5c37af3cdafa4937f5fac57f17a74d4");
+                        urlencoded.append("MYID", "1a9bcc8df49f31d9077d3364e70aa095");
                         urlencoded.append("Originator", sender);
                         urlencoded.append("Destination", values.phoneNumber);
                         urlencoded.append("GroupID", "");
