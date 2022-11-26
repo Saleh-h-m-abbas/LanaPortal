@@ -1,5 +1,4 @@
-
-import { useContext, useEffect, useState } from "react";
+import {  useEffect,useState } from "react";
 import { collection, addDoc, serverTimestamp, getDocs, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Button, Card, Grid, TextField } from "@mui/material";
@@ -9,12 +8,11 @@ import Autocomplete from '@mui/material/Autocomplete';
 import SendIcon from '@mui/icons-material/Send';
 import { Formik } from 'formik';
 import { sendSmsSchema } from "../validation/Validation";
-import { async } from "@firebase/util";
 
 const SmsSendForm = () => {
     const [sms, setSMS] = useState();
     const [option, setOption] = useState([]);
-    const [sender, setSender] = useState('Lana Line');
+    const sender = useState('Lana Line');
     const user = JSON.parse(localStorage.getItem('user'));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -25,8 +23,8 @@ const SmsSendForm = () => {
         color: theme.palette.text.secondary,
     }));
 
-    useEffect(async () => {
-        const querySnapshot = await getDocs(collection(db, "sms"), orderBy('createdAt'));
+    useEffect( () => {
+        const  querySnapshot =async()=> await getDocs(collection(db, "sms"), orderBy('createdAt'));
         const data = querySnapshot.docs;
         const options = data.map((d) => ({
             value: d.id,
@@ -73,7 +71,7 @@ const SmsSendForm = () => {
                             .then(response => response.text())
                             .catch(error => console.log('error'));
 
-                        const docRef = await addDoc(collection(db, "SendSms"), {
+                         await addDoc(collection(db, "SendSms"), {
                             email: user.email,
                             sms: sms,
                             number: values.phoneNumber,

@@ -1,5 +1,3 @@
-
-import { useContext, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Button, Card, Grid, TextField } from "@mui/material";
@@ -23,7 +21,7 @@ const SmsAddForm = () => {
       initialValues={{ sms: '' }}
       validationSchema={addSmsSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        const docRef = await addDoc(collection(db, "sms"), {
+         await addDoc(collection(db, "sms"), {
           email: user.email,
           sms: values.sms,
           createdAt: serverTimestamp()

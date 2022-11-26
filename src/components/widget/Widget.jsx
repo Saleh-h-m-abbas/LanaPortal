@@ -44,16 +44,10 @@ const Widget = ({ type }) => {
     const fetchData = async () => {
       const today = new Date();
       const lastMonth = new Date(new Date().setMonth(today.getMonth() - 1));
-      const prevMonth = new Date(new Date().setMonth(today.getMonth() - 2));
       var lastMonthQuery = query(
         collection(db, data.query),
         where("createdAt", "<=", today),
         where("createdAt", ">", lastMonth)
-      );
-      var prevMonthQuery = query(
-        collection(db, data.query),
-        where("createdAt", "<=", lastMonth),
-        where("createdAt", ">", prevMonth)
       );
       if (data.loginType) {
         if (data.loginType === "all") {
@@ -62,10 +56,6 @@ const Widget = ({ type }) => {
           );
         } else {
           lastMonthQuery = query(
-            collection(db, data.query),
-            where("authType", "==", data.loginType),
-          );
-          prevMonthQuery = query(
             collection(db, data.query),
             where("authType", "==", data.loginType),
           );

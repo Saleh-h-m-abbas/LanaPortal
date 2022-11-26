@@ -1,6 +1,4 @@
 import "./navbar.scss";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link } from "react-router-dom";
@@ -35,7 +33,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          {user.email == "admin@lanaline.ps" && <Link to="/add" style={{ textDecoration: "none" }}>
+          {user.email === "admin@lanaline.ps" && <Link to="/add" style={{ textDecoration: "none" }}>
             <li>
               <AddBoxIcon className="icon" />
               <span>Add SMS</span>
