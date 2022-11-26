@@ -22,7 +22,7 @@ const SendDatatable = () => {
         setData(list);
       },
       (error) => {
-        console.log(error);
+        console.log('error');
       }
     );
 

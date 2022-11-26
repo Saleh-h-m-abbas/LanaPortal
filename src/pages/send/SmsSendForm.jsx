@@ -12,7 +12,7 @@ import { sendSmsSchema } from "../validation/Validation";
 import { async } from "@firebase/util";
 
 const SmsSendForm = () => {
-    const [sms, setSMS] = useState('');
+    const [sms, setSMS] = useState();
     const [option, setOption] = useState([]);
     const [sender, setSender] = useState('Go WIFI');
     const user = JSON.parse(localStorage.getItem('user'));
@@ -43,16 +43,36 @@ const SmsSendForm = () => {
                 if (!sms) {
                     alert('Please Select At Least One SMS Message')
                 } else {
-                    var requestOptions = {
-                        method: 'GET',
-                        redirect: 'follow',
-                        mode: 'cors',
-                    };
-
                     try {
-                        fetch(`https://sms.htd.ps/API/SendSMS.aspx?id=c5c37af3cdafa4937f5fac57f17a74d4&sender=${sender}&to=${values.phoneNumber}&msg=${sms}`, requestOptions)
+                        var myHeaders = new Headers();
+                        myHeaders.append("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+                        myHeaders.append("cache-control", "max-age=0");
+                        myHeaders.append("origin", "http://185.193.66.128:3000");
+                        myHeaders.append("Host", "sms.htd.ps");
+                        myHeaders.append("Access-Control-Allow-Origin", "*");
+                        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+                        var urlencoded = new URLSearchParams();
+                        urlencoded.append("MYID", "1a9bcc8df49f31d9077d3364e70aa095");
+                        urlencoded.append("Originator", "LANA LINE");
+                        urlencoded.append("Destination", values.phoneNumber);
+                        urlencoded.append("GroupID", "");
+                        urlencoded.append("Message", sms);
+                        urlencoded.append("GetMsgID", "1");
+                        urlencoded.append("IsDemo", "");
+
+                        var requestOptions = {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: myHeaders,
+                            body: urlencoded,
+                            redirect: 'follow'
+                        };
+
+                        fetch("https://sms.htd.ps/API/SendSMS.asmx/SubmitSMS", requestOptions)
                             .then(response => response.text())
                             .catch(error => console.log('error'));
+
                         const docRef = await addDoc(collection(db, "SendSms"), {
                             email: user.email,
                             sms: sms,
@@ -62,7 +82,7 @@ const SmsSendForm = () => {
                         });
                         values.phoneNumber = '970';
                     } catch (e) {
-
+                        console.log('error');
                     }
 
                 }
@@ -100,13 +120,11 @@ const SmsSendForm = () => {
                             <Grid item xs={12}>
                                 <Autocomplete
                                     disablePortal
-                                    id="combo-box-demo"
                                     options={option}
                                     onInputChange={(event, newInputValue) => {
                                         setSMS(newInputValue);
                                     }}
-                                    value={sms}
-                                    renderInput={(params) => <TextField {...params} label="Please Select SMS Message" />}
+                                    renderInput={(params) => <TextField  {...params} label="Please Select SMS Message" />}
                                 />
                             </Grid>
                             <Grid item xs={12}>

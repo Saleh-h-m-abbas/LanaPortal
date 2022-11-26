@@ -10,7 +10,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import SendIcon from '@mui/icons-material/Send';
 const Navbar = () => {
   const { dispatch } = useContext(AuthContext);
-  const user= JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   return (
     <div className="navbar">
@@ -35,7 +35,7 @@ const Navbar = () => {
             </li>
           </Link>
 
-          {user.email=="admin@lanaline.ps"&&<Link to="/add" style={{ textDecoration: "none" }}>
+          {user.email == "admin@lanaline.ps" && <Link to="/add" style={{ textDecoration: "none" }}>
             <li>
               <AddBoxIcon className="icon" />
               <span>Add SMS</span>

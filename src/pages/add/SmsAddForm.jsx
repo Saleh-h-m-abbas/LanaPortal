@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import { Formik } from 'formik';
 import { addSmsSchema } from "../validation/Validation";
 const SmsAddForm = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -23,12 +24,11 @@ const SmsAddForm = () => {
       validationSchema={addSmsSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const docRef = await addDoc(collection(db, "sms"), {
-          username: "saleh",
+          email: user.email,
           sms: values.sms,
           createdAt: serverTimestamp()
         });
         setSubmitting(true);
-        console.log("Document written with ID: ", docRef.id);
         values.sms = '';
 
       }}

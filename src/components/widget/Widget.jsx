@@ -1,7 +1,7 @@
 import "./widget.scss";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { useEffect, useState } from "react";
-import { collection, query, where,getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const Widget = ({ type }) => {
         title: "Last Month",
         isMoney: false,
         link: "See all SMS",
-        query:"SendSms",
+        query: "SendSms",
         icon: (
           <PersonOutlinedIcon
             className="icon"
@@ -27,15 +27,15 @@ const Widget = ({ type }) => {
         ),
       };
       break;
-      case "allUser":
-        data = {
-          title: "Total SMS",
-          loginType:"all",
-          isMoney: false,
-          query:"SendSms",
-        };
-        break;
-    
+    case "allUser":
+      data = {
+        title: "Total SMS",
+        loginType: "all",
+        isMoney: false,
+        query: "SendSms",
+      };
+      break;
+
     default:
       break;
   }
@@ -55,29 +55,29 @@ const Widget = ({ type }) => {
         where("createdAt", "<=", lastMonth),
         where("createdAt", ">", prevMonth)
       );
-      if(data.loginType){
-        if(data.loginType==="all"){
+      if (data.loginType) {
+        if (data.loginType === "all") {
           lastMonthQuery = query(
             collection(db, data.query)
           );
-        }else{
+        } else {
           lastMonthQuery = query(
             collection(db, data.query),
             where("authType", "==", data.loginType),
           );
-           prevMonthQuery = query(
+          prevMonthQuery = query(
             collection(db, data.query),
             where("authType", "==", data.loginType),
           );
         }
-        
+
       }
       const lastMonthData = await getDocs(lastMonthQuery);
       setAmount(lastMonthData.docs.length);
 
     };
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -88,10 +88,10 @@ const Widget = ({ type }) => {
           {data.isMoney && "$"} {amount}
         </span>
         <Link to={"/sms"}>
-        <span className="link">{data.link}</span>
+          <span className="link">{data.link}</span>
         </Link>
       </div>
-    
+
     </div>
   );
 };

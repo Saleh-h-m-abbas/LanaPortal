@@ -24,7 +24,7 @@ export const userColumns = [
 export const smsColumns = [
   { field: "id", headerName: "ID", width: 400 },
   { field: "sms", headerName: "SMS Message", width: 700 },
-  { field: "username", headerName: "Added User", width: 250 },
+  { field: "email", headerName: "Added User", width: 250 },
   {
     field: "createdAt",
     headerName: "Created At",
