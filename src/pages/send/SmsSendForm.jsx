@@ -12,7 +12,7 @@ import { sendSmsSchema } from "../validation/Validation";
 const SmsSendForm = () => {
     const [sms, setSMS] = useState();
     const [option, setOption] = useState([]);
-    const sender = useState('Lana Line');
+    const [sender, setSender]  = useState("Lana Line");
     const user = JSON.parse(localStorage.getItem('user'));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -69,7 +69,7 @@ const SmsSendForm = () => {
 
                         fetch("https://sms.htd.ps/API/SendSMS.asmx/SubmitSMS", requestOptions)
                             .then(response => response.text())
-                            .catch(error => console.log('error'));
+                            .catch(error => console.log('error',error));
 
                          await addDoc(collection(db, "SendSms"), {
                             email: user.email,
