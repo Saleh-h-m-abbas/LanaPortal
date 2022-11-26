@@ -23,8 +23,8 @@ const SmsSendForm = () => {
         color: theme.palette.text.secondary,
     }));
 
-    useEffect( () => {
-        const  querySnapshot =async()=> await getDocs(collection(db, "sms"), orderBy('createdAt'));
+    useEffect(async () => {
+        const querySnapshot = await getDocs(collection(db, "sms"), orderBy('createdAt'));
         const data = querySnapshot.docs;
         const options = data.map((d) => ({
             value: d.id,
