@@ -14,7 +14,7 @@ import { async } from "@firebase/util";
 const SmsSendForm = () => {
     const [sms, setSMS] = useState();
     const [option, setOption] = useState([]);
-    const [sender, setSender] = useState('Go WIFI');
+    const [sender, setSender] = useState('Lana Line');
     const user = JSON.parse(localStorage.getItem('user'));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -54,7 +54,7 @@ const SmsSendForm = () => {
 
                         var urlencoded = new URLSearchParams();
                         urlencoded.append("MYID", "1a9bcc8df49f31d9077d3364e70aa095");
-                        urlencoded.append("Originator", "LANA LINE");
+                        urlencoded.append("Originator", sender);
                         urlencoded.append("Destination", values.phoneNumber);
                         urlencoded.append("GroupID", "");
                         urlencoded.append("Message", sms);
