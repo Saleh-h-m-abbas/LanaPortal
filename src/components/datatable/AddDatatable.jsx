@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { smsColumns } from "../../datatablesource";
 import { useEffect, useState } from "react";
 import {
+  deleteDoc,
+  doc,
   collection,
   onSnapshot,
 } from "firebase/firestore";
@@ -29,6 +31,33 @@ const AddDatatable = () => {
     return sub;
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "sms", id));
+      setData(data.filter((item) => item.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <div className="cellAction">
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              Delete
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
   return (
     <div className="datatable">
       <div className="datatableTitle">
@@ -37,7 +66,7 @@ const AddDatatable = () => {
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={smsColumns}
+        columns={smsColumns.concat(actionColumn)}
         pageSize={100}
         rowsPerPageOptions={[5]}
       />

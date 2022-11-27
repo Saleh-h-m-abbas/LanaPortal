@@ -28,7 +28,7 @@ export const smsColumns = [
   {
     field: "createdAt",
     headerName: "Created At",
-    width: 750,
+    width: 200,
     renderCell: (params) => {
       return (
           <div>{`${params.row.createdAt? params.row.createdAt?.toDate().toDateString() : ''}`}</div>
